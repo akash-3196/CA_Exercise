@@ -16,7 +16,7 @@ module load intel
 # TODO allocate a compute node
 #salloc -N 1 --ntasks-per-node=1 --exclusive --cpu-freq=2200000 -t 02:00:00
 # This line creates / overrides a result csv file
-echo "ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime,EdgeSize" >> result.csv
+echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" >> result.csv
 
 # TODO run benchmark 1
 # execute measurement with for loop
@@ -34,7 +34,7 @@ dist=(1 2 3 4 6 9 13 19 27 39 57 82 119 172 248 358 517 746 1077 1556 2247 3245 
 #So i used the below range just for testing for now
 #dist=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
 for size_KiB in "${dist[@]}"; do
-	srun ../bin/jCobi "$size_KiB" >> result.csv
+	srun ../bin/benchmark_loop "$size_KiB" >> result.csv
 done
 # Note: copy the result.csv to a local machine!
 
