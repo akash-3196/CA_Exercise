@@ -24,6 +24,6 @@
   void benchmark_vector(float (*vec_sum)(float[], uint32_t), float mArr[], uint32_t arraySize, uint64_t minimal_runtime);
   void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, uint32_t num_rows) ;
   void engage_vec_sum_benchmark(uint32_t byte_data, uint32_t unroll_factor);
-  void engage_jacobi_benchmark(uint32_t kilobyte, uint32_t unrol_factor);
+  void engage_jacobi_benchmark(uint32_t kilobyte);
   
 #endif

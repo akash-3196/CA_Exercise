@@ -36,11 +36,11 @@ int main(int argc, char *argv[]) {
 	uint32_t kilobyte_arg = atoi(argv[1]);
 	
 //Start Vec_sum benchmark
-	engage_vec_sum_benchmark(kilobyte_arg, 4);
+	//engage_vec_sum_benchmark(kilobyte_arg, 4);
 
 
 //Start jacobi benchmark
-	//engage_jacobi_benchmark(kilobyte_arg, UNROLL_FACTOR);
+	engage_jacobi_benchmark(kilobyte_arg);
 
 
 	

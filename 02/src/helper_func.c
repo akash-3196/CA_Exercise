@@ -115,7 +115,7 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 
 
 	//fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", mega_updates_per_second, actual_runtime, minimal_runtime,edge_size);
-//fprintf(stdout, "%lu,%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", grid_size_bytes, mega_updates_per_second, (double)actual_runtime, minimal_runtime, edge_size);
+fprintf(stdout, "%lu,%" PRIu64 ",%lf,%" PRIu64  "\n", grid_size_bytes, mega_updates_per_second, (double)actual_runtime, minimal_runtime);
 
 	    // Free the allocated memory
         _mm_free(grid_trgt);
@@ -167,7 +167,7 @@ void engage_vec_sum_benchmark(uint32_t byte_data, uint32_t unroll_factor){
      
 }
 
-void engage_jacobi_benchmark(uint32_t kilobyte, uint32_t unrol_factor){
+void engage_jacobi_benchmark(uint32_t kilobyte){
 
 
     grid_size_bytes = kilobyte * 1024;
@@ -191,6 +191,7 @@ void engage_jacobi_benchmark(uint32_t kilobyte, uint32_t unrol_factor){
 	uint64_t edge_size= sqrt(gridLength/2);
 	uint64_t num_rows = edge_size;
 	uint64_t num_cols =  num_rows;
+    //printf("Jacobi starated... x=y=%lu\n", num_rows);
 
     	//Initialize the left and top margin with 1.0 and sets the remaining cells to 0.0 
 	initialize_grid(grid_src, num_rows, num_cols);
