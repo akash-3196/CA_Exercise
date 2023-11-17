@@ -19,7 +19,7 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
 
 
 // Uncomment the following line to enable twofold unrolling
-#define JACOBI_UNROLLING 4
+#define JACOBI_UNROLLING 1
 
 // Uncomment the following line to enable fourfold unrolling
 // #define FOURFOLD_UNROLLING
@@ -32,8 +32,8 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
                //debugger: printf("JACOBI_FACTOR = TWO\n");
             for(uint32_t i = 1; i < y - 1; ++i) {
 
-                //# pragma novector
-                //# pragma nounroll
+                # pragma novector
+                # pragma nounroll
                 for(uint32_t j = 1; j < x - 1; j+=JACOBI_UNROLLING) {
                      grid_target[x * i + j] = 0.25 * (
                             grid_source[x * i + (j - 1)] + grid_source[x * i + (j + 1)] +
@@ -50,8 +50,8 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
             //debugger: printf("JACOBI_FACTOR = FOUR\n");
             for(uint32_t i = 1; i < y - 1; ++i) {
 
-                //# pragma novector
-                //# pragma nounroll
+                # pragma novector
+                # pragma nounroll
                 for(uint32_t j = 1; j < x - 1; j+=JACOBI_UNROLLING) {
                      grid_target[x * i + j] = 0.25 * (
                             grid_source[x * i + (j - 1)] + grid_source[x * i + (j + 1)] +
@@ -77,8 +77,8 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
         //debugger: printf("JACOBI_FACTOR = ONE\n");
             for(uint32_t i = 1; i < y - 1; ++i) {
 
-                    //# pragma novector
-                    //# pragma nounroll
+                    # pragma novector
+                    # pragma nounroll
                     for(uint32_t j = 1; j < x - 1; ++j) {
                         grid_target[x * i + j] = 0.25 * (
                                 grid_source[x * i + (j - 1)] + grid_source[x * i + (j + 1)] +
