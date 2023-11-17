@@ -7,11 +7,11 @@
 
 
 # Enable debug and verbose mode
-#set -x
-#set -v
+set -x
+set -v
 
 # Load module with icc compiler
-#module load intel
+module load intel
 
 # TODO allocate a compute node
 #salloc -N 1 --ntasks-per-node=1 --exclusive --cpu-freq=2200000 -t 02:00:00
@@ -34,9 +34,9 @@ dist=(1 2 3 4 6 9 13 19 27 39 57 82 119 172 248 358 517 746 1077 1556 2247 3245 
 #So i used the below range just for testing for now
 #dist=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
 for size_KiB in "${dist[@]}"; do
-	../bin/benchmark_loop "$size_KiB" >> result_jacobi.csv
+	srun ../bin/benchmark_loop "$size_KiB" >> result_jacobi.csv
 done
 # Note: copy the result.csv to a local machine!
 
 
-echo "Ran successfully!"
+touch ready
