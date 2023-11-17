@@ -31,15 +31,16 @@ int main(int argc, char *argv[]) {
 	}
 	
 	//Set Unrol factor
-	#define UNROLL_FACTOR 4 
+	//#define UNROLL_FACTOR 4 
 
 	uint32_t kilobyte_arg = atoi(argv[1]);
+	
 //Start Vec_sum benchmark
-	engage_vec_sum_benchmark(kilobyte_arg, UNROLL_FACTOR);
+	engage_vec_sum_benchmark(kilobyte_arg, 4);
 
 
 //Start jacobi benchmark
-	engage_jacobi_benchmark(kilobyte_arg, UNROLL_FACTOR);
+	//engage_jacobi_benchmark(kilobyte_arg, UNROLL_FACTOR);
 
 
 	

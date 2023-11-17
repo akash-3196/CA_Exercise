@@ -125,10 +125,11 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 
 void engage_vec_sum_benchmark(uint32_t byte_data, uint32_t unroll_factor){
 
-
 //TODO: parse parameter: size of the vector in KiB
-	uint64_t array_size_bytes = byte_data;
-	uint32_t arraySize = array_size_bytes/ sizeof(float); // convert Bytes to array length
+	uint64_t array_size_bytes = byte_data * 1024;
+	uint64_t arraySize = array_size_bytes/ sizeof(float); // convert Bytes to array length
+    
+   
    
 	//TODO: allocate memory and initialize it
 	float * mArr = (float *)malloc(arraySize*sizeof(float));
@@ -162,6 +163,8 @@ void engage_vec_sum_benchmark(uint32_t byte_data, uint32_t unroll_factor){
 	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes, adds_per_second, actual_runtime, minimal_runtime);
         // Free the allocated memory
         free(mArr);
+
+     
 }
 
 void engage_jacobi_benchmark(uint32_t kilobyte, uint32_t unrol_factor){

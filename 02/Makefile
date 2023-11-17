@@ -9,8 +9,12 @@ INC_PATH  := $(SRC_PATH)/include
 INC_DIRS  := $(sort $(shell find $(INC_PATH) -type d))
 INC_FLAGS := $(addprefix -iquote ,$(INC_DIRS))
 
-CC      := gcc
-CFLAGS  := -Wall -pedantic -Werror -std=c99 -O3 #-xHost
+CC      := icc
+CFLAGS  := -Wall -pedantic -Werror -std=c99 -O3 -xHost
+
+
+# Default UNROLL_FACTOR value
+UNROLL_FACTOR ?= 4
 
 LDFLAGS := -lm
 
@@ -23,7 +27,7 @@ benchmark_loop: $(BIN_PATH)/benchmark_loop
 
 $(BIN_PATH)/benchmark_loop: $(BUILD_PATH)/main.o $(BUILD_PATH)/jacobi.o $(BUILD_PATH)/get_time.o $(BUILD_PATH)/helper_func.o $(BUILD_PATH)/draw.o $(BUILD_PATH)/vec_sum.o
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS) -DUNROLL_FACTOR=$(UNROLL_FACTOR) $^ -o $@ $(LDFLAGS)
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	mkdir -p $(dir $@)
