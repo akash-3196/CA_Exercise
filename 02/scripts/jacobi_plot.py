@@ -23,7 +23,7 @@ file_paths = [
 colors = [ 'blue', 'green', 'red']
 labels = [ 'NO_UNROLL', 'UNROLL = 2', 'UNROLL = 4']
 
-matplotlib.rc('figure', figsize=(12, 5))
+#matplotlib.rc('figure', figsize=(12, 5))
 
 for file_path, color, label in zip(file_paths, colors, labels):
     x_axis, y_axis = read_csv(file_path)
