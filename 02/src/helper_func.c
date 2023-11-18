@@ -147,7 +147,7 @@ void engage_vec_sum_benchmark(uint32_t byte_data, uint32_t unroll_factor){
         start = get_time_us();
 		for(uint64_t i = 0u; i < runs; i++) {
 			// TODO
-			vec_sum(mArr, arraySize);
+			vec_sum(mArr, runs * arraySize);
 		}
 		stop  = get_time_us();
 		actual_runtime = stop - start;
