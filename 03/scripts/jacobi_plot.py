@@ -1,3 +1,10 @@
+
+
+
+
+#Vectorization
+
+
 #Plots data obtained from HPC benchmarking of Jacobi with variant unrolling factors
 #
 import numpy as np
@@ -14,9 +21,9 @@ def read_csv(file_path):
 
 # Define file paths
 file_paths = [
-  '../server_data/jacobi/u1/result_jacobi.csv',
-  '../server_data/jacobi/u2/result_jacobi.csv',
-  '../server_data/jacobi/u4/result_jacobi.csv',
+    '../server_data/result_jacobi_1.csv',
+    '../server_data/result_jacobi_2.csv',
+    '../server_data/result_jacobi_4.csv'
 ]
 
 # Read CSV files and plot
@@ -37,6 +44,7 @@ formatter.set_scientific(False)
 # Get the current axes
 ax = plt.gca()
 ax.xaxis.set_major_formatter(formatter)
+plt.xscale('log')
 plt.xlabel("Memory Consumption (KiB)")
 plt.ylabel("MegaUpdatesPerSecond")
 plt.grid()
