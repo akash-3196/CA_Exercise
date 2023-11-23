@@ -6,7 +6,7 @@
 #include "jacobi.h"
 
 // Uncomment the following line to enable twofold unrolling
-#define JACOBI_UNROLLING 4
+#define JACOBI_UNROLLING 1
 
 // Uncomment the following line to enable fourfold unrolling
 // #define FOURFOLD_UNROLLING
@@ -22,19 +22,21 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
                 #pragma novector
                 #pragma nounroll
                 for (uint32_t j = 1; j < x - 1; j += JACOBI_UNROLLING) {
-                __m128d left_top = _mm_loadu_pd(&grid_source[x * (i - 1) + j]);
-                __m128d right_top = _mm_loadu_pd(&grid_source[x * (i + 1) + j]);
-                __m128d left_bottom = _mm_loadu_pd(&grid_source[x * i + (j - 1)]);
-                __m128d right_bottom = _mm_loadu_pd(&grid_source[x * i + (j + 1)]);
+                    __m128d top_point = _mm_loadu_pd(&grid_source[x * (i - 1) + j]);
+                    __m128d bottom_point = _mm_loadu_pd(&grid_source[x * (i + 1) + j]);
 
-                __m128d result1 = _mm_add_pd(left_top, right_top);
-                __m128d result2 = _mm_add_pd(left_bottom, right_bottom);
+                    __m128d left_point = _mm_loadu_pd(&grid_source[x * i + (j - 1)]);
+                    __m128d right_point = _mm_loadu_pd(&grid_source[x * i + (j + 1)]);
 
-                __m128d final_result = _mm_add_pd(result1, result2);
-                final_result = _mm_mul_pd(final_result, _mm_set1_pd(0.25));
+                    __m128d result1 = _mm_add_pd(top_point, bottom_point);
+                    __m128d result2 = _mm_add_pd(left_point, right_point);
 
-                _mm_storeu_pd(&grid_target[x * i + j], final_result);
-            }
+                    __m128d total_points = _mm_add_pd(result1, result2);
+
+                    total_points = _mm_mul_pd(total_points, _mm_set1_pd(0.25));
+
+                    _mm_storeu_pd(&grid_target[x * i + j], total_points);
+                }
             }
         #elif JACOBI_UNROLLING == 4
             //debugger: printf("JACOBI_FACTOR = FOUR\n");
@@ -42,19 +44,22 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
 
                 #pragma novector
                 #pragma nounroll
-                for(uint32_t j = 1; j < x - 1; j+=JACOBI_UNROLLING) {
-                  __m128d left_top = _mm_loadu_pd(&grid_source[x * (i - 1) + j]);
-                __m128d right_top = _mm_loadu_pd(&grid_source[x * (i + 1) + j]);
-                __m128d left_bottom = _mm_loadu_pd(&grid_source[x * i + (j - 1)]);
-                __m128d right_bottom = _mm_loadu_pd(&grid_source[x * i + (j + 1)]);
+                for (uint32_t j = 1; j < x - 1; j += JACOBI_UNROLLING) {
+                 
+                    __m256d top_point = _mm256_loadu_pd(&grid_source[x * (i - 1) + j]);
+                    __m256d bottom_point = _mm256_loadu_pd(&grid_source[x * (i + 1) + j]);
 
-                __m128d result1 = _mm_add_pd(left_top, right_top);
-                __m128d result2 = _mm_add_pd(left_bottom, right_bottom);
+                    __m256d left_point = _mm256_loadu_pd(&grid_source[x * i + (j - 1)]);
+                    __m256d right_point = _mm256_loadu_pd(&grid_source[x * i + (j + 1)]);
 
-                __m128d final_result = _mm_add_pd(result1, result2);
-                final_result = _mm_mul_pd(final_result, _mm_set1_pd(0.25));
+                    __m256d result1 = _mm256_add_pd(top_point, bottom_point);
+                    __m256d result2 = _mm256_add_pd(left_point, right_point);
 
-                _mm_storeu_pd(&grid_target[x * i + j], final_result);
+                    __m256d total_points = _mm256_add_pd(result1, result2);
+
+                    total_points = _mm256_mul_pd(total_points, _mm256_set1_pd(0.25));
+
+                    _mm256_storeu_pd(&grid_target[x * i + j], total_points);
                 }
             }
          #else
@@ -67,7 +72,7 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
                         grid_target[x * i + j] = 0.25 * (
                                 grid_source[x * i + (j - 1)] + grid_source[x * i + (j + 1)] +
                                 grid_source[x * (i - 1) + j] + grid_source[x * (i + 1) + j]
-                            );
+                        );
                     }
                 }
 
@@ -77,8 +82,8 @@ void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
 
             for(uint32_t i = 1; i < y - 1; ++i) {
 
-                # pragma novector
-                # pragma nounroll
+                #pragma novector
+                #pragma nounroll
                 for(uint32_t j = 1; j < x - 1; ++j) {
                      grid_target[x * i + j] = 0.25 * (
                             grid_source[x * i + (j - 1)] + grid_source[x * i + (j + 1)] +

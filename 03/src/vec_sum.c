@@ -20,8 +20,8 @@ float vec_sum(float *array, uint32_t length) {
         #if UNROLL_FACTOR == 2
           float sum [2] = { 0.0f , 0.0f };
         //debugger: printf("UNROL_FACTOR!: %d (TWO) \n", UNROLL_FACTOR);
-            # pragma novector
-            # pragma nounroll
+            //#pragma novector
+            //#pragma nounroll
             for (uint32_t i = 0; i < length; i += 2) {
                 sum[0] += array[i];
                 sum[1] += array[i + 1];
@@ -30,8 +30,8 @@ float vec_sum(float *array, uint32_t length) {
         #elif UNROLL_FACTOR == 3
             float sum[3] = {0.0f, 0.0f, 0.0f};
             //debugger: printf("UNROL_FACTOR!: %d (THREE) \n", UNROLL_FACTOR);
-            # pragma novector
-            # pragma nounroll
+            //#pragma novector
+            //#pragma nounroll
             for (uint32_t i = 0; i < length; i += 3) {
                 sum[0] += array[i]; 
                 sum[1] += array[i + 1]; 
@@ -40,8 +40,8 @@ float vec_sum(float *array, uint32_t length) {
         #elif UNROLL_FACTOR == 4
             float sum[4] = {0.0f, 0.0f, 0.0f, 0.0f};
             //debugger: printf("UNROL_FACTOR!: %d (FOUR) \n", UNROLL_FACTOR);
-            # pragma novector
-            # pragma nounroll
+            //#pragma novector
+            //#pragma nounroll
             for (uint32_t i = 0; i < length; i += 4) {
                 sum[0] += array[i]; 
                 sum[1] += array[i + 1]; 
@@ -55,8 +55,8 @@ float vec_sum(float *array, uint32_t length) {
                 uint32_t remainder = length % UNROLL_FACTOR;
                 __m256 result = _mm256_setzero_ps ();
                 __m256 accu ;
-                # pragma nounroll
-                # pragma novector
+                //#pragma nounroll
+                //#pragma novector
                 for ( uint32_t i = 0 ; i < length - remainder ; i +=8) {
                 accu = _mm256_loadu_ps (& array [ i ]);
                 result = _mm256_add_ps ( result , accu );
@@ -73,6 +73,9 @@ float vec_sum(float *array, uint32_t length) {
             // No unrolling
             float sum[1] = {0.0f};
             //debugger: printf("UNROL_FACTOR!: %d (NO_UNROLLING) \n", UNROLL_FACTOR);
+
+            //#pragma novector
+            //#pragma nounroll
             for (uint32_t i = 0; i < length; ++i) {
                 sum[0] += array[i];
                
@@ -95,6 +98,8 @@ float vec_sum(float *array, uint32_t length) {
     #else
         float sum = 0.0f;
         // No unrolling
+        //#pragma novector
+        //#pragma nounroll
         for (uint32_t i = 0; i < length; ++i) {
             sum += array[i];
 
@@ -115,8 +120,8 @@ float two_three_four_fold_vecsum_unrol(float *array, uint32_t length) {
         __m128 result =  _mm_setzero_ps();
         __m128 accu ;
 
-        #pragma unroll (UNROLL_FACTOR)
-        #pragma novector
+        //#pragma unroll (UNROLL_FACTOR)
+        //#pragma novector
         for ( uint32_t i = 0 ; i < length - remainder ; i +=UNROLL_FACTOR) {
         accu = _mm_load_ps (& array [i]);
         result = _mm_add_ps(result, accu);
