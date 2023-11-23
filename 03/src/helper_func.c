@@ -178,12 +178,6 @@ void engage_jacobi_benchmark(uint32_t kilobyte){
 	double * grid_trgt = (double *)_mm_malloc(gridLength*sizeof(double), 64);
 	double * grid_src = (double *)_mm_malloc(gridLength*sizeof(double), 64);
 
-// Check if memory allocation is successful
-   /* if (grid_trgt == NULL || grid_src == NULL) {
-        fprintf(stderr, "Memory allocation failed.\n");
-        return EXIT_FAILURE;
-    }
-    */
 		
 	//We assume that the given grid size is a linearized array
 	//hence division by 2 
