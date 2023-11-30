@@ -101,7 +101,7 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 
 
 	#ifdef LIKWID_PERFMON
-		printf("LIKWID_MARKER API Working\n");
+		printf("LIKWID_MARKER API Working!!\n");
 
  		LIKWID_MARKER_INIT;
 		for (runs = 1u; actual_runtime < minimal_runtime; runs = runs << 1u) {
