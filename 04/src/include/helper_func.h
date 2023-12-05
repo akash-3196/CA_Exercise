@@ -7,6 +7,13 @@
 #include <mm_malloc.h>
 #include <math.h>
 
+//#ifdef LIKWID_PERFMON
+	#include <likwid-marker.h>
+//#endif
+
+
+
+
 #include "draw.h"
 #include "vec_sum.h"
 #include "jacobi.h"

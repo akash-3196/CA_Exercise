@@ -7,6 +7,11 @@
 #include <mm_malloc.h>
 #include <math.h>
 
+//
+	#include <likwid-marker.h>
+//#endif
+
+//#include </apps/likwid/5.3.0/include/likwid-marker.h>
 
 #include "get_time.h"
 #include "draw.h"
@@ -20,6 +25,7 @@
    @x grid height
    @y grid width 
  */
+
 
 uint64_t minimal_runtime  = 1e6; // set minimal runtime to 1000000 microseconds = 1 seconds
 uint64_t   mega_updates_per_second  = 0u;
@@ -86,18 +92,49 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
     uint64_t actual_runtime= 0u;
     uint64_t runs= 0u;
 
-    for (runs = 1u; actual_runtime < minimal_runtime; runs = runs << 1u) {
-        start = get_time_us();
+	//Check if LIKWID_PERFMON is defined
 
-        for (uint64_t i = 0u; i < runs; i++) {
-            // TODO: Make sure jacobi and swap functions are properly defined
-            jacobi(grid_src, grid_trgt, num_cols, num_rows);
-            swap(&grid_trgt, &grid_src);
-        }
+		
 
-        stop = get_time_us();
-        actual_runtime = stop - start;
-    }
+		
+	
+
+
+	#ifdef LIKWID_PERFMON
+		printf("LIKWID_MARKER API Working\n");
+
+ 		LIKWID_MARKER_INIT;
+		for (runs = 1u; actual_runtime < minimal_runtime; runs = runs << 1u) {
+			start = get_time_us();
+			LIKWID_MARKER_RESET ( "PROFILE_JACOBI" ); // Fails on first iteration
+			LIKWID_MARKER_START ( "PROFILE_JACOBI" );
+			for (uint64_t i = 0u; i < runs; i++) {
+				// TODO: Make sure jacobi and swap functions are properly defined
+				jacobi(grid_src, grid_trgt, num_cols, num_rows);
+				//jacobi_column_wise(grid_src, grid_trgt, num_cols, num_rows);
+				swap(&grid_trgt, &grid_src);
+			}
+			LIKWID_MARKER_STOP ( "PROFILE_JACOBI" );
+			stop = get_time_us();
+			actual_runtime = stop - start;
+		}
+		LIKWID_MARKER_CLOSE;
+	 #else
+			printf("LIKWID_MARKER API Not Working\n");
+		for (runs = 1u; actual_runtime < minimal_runtime; runs = runs << 1u) {
+			start = get_time_us();
+
+			for (uint64_t i = 0u; i < runs; i++) {
+				// TODO: Make sure jacobi and swap functions are properly defined
+				jacobi(grid_src, grid_trgt, num_cols, num_rows);
+				//jacobi(grid_src, grid_trgt, num_cols, num_rows);
+				swap(&grid_trgt, &grid_src);
+			}
+
+			stop = get_time_us();
+			actual_runtime = stop - start;
+		}
+	 #endif
 
 
     //printf("Program Code ran successfully!\n");
@@ -129,7 +166,7 @@ void engage_vec_sum_benchmark(uint32_t byte_data, uint32_t unroll_factor){
 	uint64_t array_size_bytes = byte_data * 1024;
 	uint64_t arraySize = array_size_bytes/ sizeof(float); // convert Bytes to array length
     
-	 printf("Task 4.1 Vecsum ArrayLenght: %lu\n", (arraySize));
+	 //printf("Task 4.1 Vecsum ArrayLenght: %lu\n", (arraySize));
    
 	//TODO: allocate memory and initialize it
 	float * mArr = (float *)malloc(arraySize*sizeof(float));
@@ -147,7 +184,7 @@ void engage_vec_sum_benchmark(uint32_t byte_data, uint32_t unroll_factor){
         start = get_time_us();
 		for(uint64_t i = 0u; i < runs; i++) {
 			// TODO
-			//vec_sum(mArr, runs * arraySize);
+			vec_sum(mArr, runs * arraySize);
 		}
 		stop  = get_time_us();
 		actual_runtime = stop - start;

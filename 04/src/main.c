@@ -6,6 +6,13 @@
 #include "get_time.h"
 #include "helper_func.h"
 
+// Check if LIKWID_PERFMON is defined
+#ifdef LIKWID_PERFMON
+	#define LIKWID_ENABLED 1
+#else
+	#define LIKWID_ENABLED 0
+#endif
+
 static void usage_msg(void) {
 	//fprintf(stderr, "Usage: ./jacobi  <Grid Height> <Grid Width>\n");
 	fprintf(stderr, "Usage: ./jacobi  grid_size_KiB\n");
@@ -25,11 +32,11 @@ int main(int argc, char *argv[]) {
 	uint32_t kilobyte_arg = atoi(argv[1]);
 	
 //Start Vec_sum benchmark
-	engage_vec_sum_benchmark(kilobyte_arg, 4);
+	//engage_vec_sum_benchmark(kilobyte_arg, 4);
 
 
 //Start jacobi benchmark
-	//engage_jacobi_benchmark(kilobyte_arg);
+	engage_jacobi_benchmark(kilobyte_arg);
 
 
 
