@@ -2,16 +2,13 @@
 #include <stdlib.h>
 #include <inttypes.h>
 
+#include <likwid-marker.h>
+
 
 #include "get_time.h"
 #include "helper_func.h"
 
 // Check if LIKWID_PERFMON is defined
-#ifdef LIKWID_PERFMON
-	#define LIKWID_ENABLED 1
-#else
-	#define LIKWID_ENABLED 0
-#endif
 
 static void usage_msg(void) {
 	//fprintf(stderr, "Usage: ./jacobi  <Grid Height> <Grid Width>\n");
@@ -28,6 +25,12 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 	
+	#ifdef LIKWID_PERFMON
+		printf("LIKWID_PERFMON Available\n");
+	#else
+		printf("NO Likwid!!\n");
+	#endif
+
 
 	uint32_t kilobyte_arg = atoi(argv[1]);
 	

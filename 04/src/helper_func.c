@@ -101,7 +101,7 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 
 
 	#ifdef LIKWID_PERFMON
-		printf("LIKWID_MARKER API Working\n");
+		//printf("LIKWID_MARKER API Working\n");
 
  		LIKWID_MARKER_INIT;
 		for (runs = 1u; actual_runtime < minimal_runtime; runs = runs << 1u) {
@@ -110,8 +110,8 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 			LIKWID_MARKER_START ( "PROFILE_JACOBI" );
 			for (uint64_t i = 0u; i < runs; i++) {
 				// TODO: Make sure jacobi and swap functions are properly defined
-				jacobi(grid_src, grid_trgt, num_cols, num_rows);
-				//jacobi_column_wise(grid_src, grid_trgt, num_cols, num_rows);
+				//jacobi(grid_src, grid_trgt, num_cols, num_rows);
+				jacobi_column_wise(grid_src, grid_trgt, num_cols, num_rows);
 				swap(&grid_trgt, &grid_src);
 			}
 			LIKWID_MARKER_STOP ( "PROFILE_JACOBI" );
@@ -120,14 +120,14 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 		}
 		LIKWID_MARKER_CLOSE;
 	 #else
-			printf("LIKWID_MARKER API Not Working\n");
+			//printf("LIKWID_MARKER API Not Working\n");
 		for (runs = 1u; actual_runtime < minimal_runtime; runs = runs << 1u) {
 			start = get_time_us();
 
 			for (uint64_t i = 0u; i < runs; i++) {
 				// TODO: Make sure jacobi and swap functions are properly defined
-				jacobi(grid_src, grid_trgt, num_cols, num_rows);
 				//jacobi(grid_src, grid_trgt, num_cols, num_rows);
+				jacobi_column_wise(grid_src, grid_trgt, num_cols, num_rows);
 				swap(&grid_trgt, &grid_src);
 			}
 
@@ -143,7 +143,7 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 
 
 	//draw_grid(grid_src, grid_width, grid_height, file_path);
-	draw_grid(grid_trgt, num_cols, num_rows, file_path);
+	//draw_grid(grid_trgt, num_cols, num_rows, file_path);
  
 	//TODO: calculate and print
 	//1 FLOP per iteration in the vec_sum
