@@ -1,12 +1,23 @@
-# Makefile for my_project
+# Makefile for task_4
 
 # Compiler settings
-CC = icc
-CFLAGS = -Wall -pedantic -Werror -std=c99 -O3 -pg -xHost -I./src/include -I/apps/likwid/5.2.1/include
+#icc
+#CC = icc
+#CFLAGS = -Wall -pedantic -Werror -std=c99 -O3 -pg -xHost -I./src/include -I/apps/likwid/5.2.1/include
 
 # Likwid settings
+#LIKWID_FLAGS = -DLIKWID_PERFMON
+#LIKWID_LIB = -pthread -L/apps/likwid/5.2.1/lib/ -llikwid
+
+#gcc configuration for my machine
+# Likwid settings
+CC = gcc
+CFLAGS = -Wall -pedantic -Werror -std=c99 -O3 -pg -march=native -I./src/include -I/usr/local/include -lm
+
 LIKWID_FLAGS = -DLIKWID_PERFMON
-LIKWID_LIB = -pthread -L/apps/likwid/5.2.1/lib/ -llikwid
+LIKWID_LIB = -pthread -L/usr/local/lib/ -llikwid
+
+
 
 # Source files
 SRC_DIR = src
@@ -20,7 +31,7 @@ TARGET = task_4
 all: $(TARGET)
 
 $(TARGET): build $(OBJECTS)
-	$(CC) $(CFLAGS) $(LIKWID_FLAGS) -o $@ $(OBJECTS) $(LIKWID_LIB)
+	$(CC) $(CFLAGS) $(LIKWID_FLAGS) -o $@ $(OBJECTS) -lm $(LIKWID_LIB)
 
 build:
 	mkdir -p build

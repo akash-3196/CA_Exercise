@@ -12,18 +12,22 @@ set -x
 set -v
 
 module load intel
-module load likwid/5.2.1
+module load likwid/5.3.0
 
 
-echo "ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" >> result_jacobi.csv
+#echo "ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" >> result_jacobi.csv
 
 dist=(4686 6767)
 
 for size_KiB in "${dist[@]}"; do
-    srun likwid-perfctr -O --stats -C 8 -c 8 -f -m -g "MEM_UOPS_RETIRED_LOADS_ALL:PMC1,MEM_LOAD_UOPS_RETIRED_L1_HIT:PMC2" ./task_4 "$size_KiB" >> result_jacobi.csv
-     #likwid-perfctr -O --stats -C 0 -c 0 -f -m -g MEM_UOPS_RETIRED_LOADS_ALL:PMC1,MEM_LOAD_UOPS_RETIRED_L1_HIT:PMC2 ./task_4 "$size_KiB" >> result_jacobi.csv
+#srun likwid-perfctr -O --stats -C 0 -c 0 -f -g NUMA -m ./task_4 "$size_KiB" >> result_likwid.csv
+        #srun likwid-perfctr -O --stats -C 0 -g FLOPS_DP -c 0 -m -e FLOPS_DP ../task_4 "$size_KiB" >> result_likwid.csv
+    srun  likwid-perfctr -O --stats -C 0 -g MEM_DP -c 0 -m -e MEM_DP,UOPS ./task_4 "$size_KiB" >> result_likwid.csv
+
+        #likwid-perfctr -O --stats -C 0 -c 0 -f -m -g MEM_UOPS_RETIRED_LOADS_ALL:PMC1,MEM_LOAD_UOPS_RETIRED_L1_HIT:PMC2 ./task_4 "$size_KiB" >> result_likwid.csv
+
 done
 
-squeue
+#squeue
 
 touch ready
