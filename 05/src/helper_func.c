@@ -95,7 +95,8 @@ void benchmark_jacobi(double *grid_src, double *grid_trgt, uint32_t num_cols, ui
 
 			for (uint64_t i = 0u; i < runs; i++) {
 				// TODO: Make sure jacobi and swap functions are properly defined
-				jacobi(grid_src, grid_trgt, num_cols, num_rows);
+				//jacobi(grid_src, grid_trgt, num_cols, num_rows);
+				jacobi_spatial_blocking(grid_src, grid_trgt, num_cols, num_rows);
 				swap(&grid_trgt, &grid_src);
 			}
 

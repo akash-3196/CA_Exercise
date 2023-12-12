@@ -8,5 +8,6 @@
  */
 void jacobi(double* grid_source, double* grid_target, uint32_t x, uint32_t y);
 void jacobi_column_wise(double* grid_source, double* grid_target, uint32_t x, uint32_t y);
+void jacobi_spatial_blocking(double* grid_source, double* grid_target, uint32_t x, uint32_t y);
 
 #endif
