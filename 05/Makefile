@@ -1,6 +1,7 @@
 # Makefile for my_project
 
 # Compiler settings
+#MODULE_LOAD = $(shell module load intel)
 CC = icc
 CFLAGS = -Wall -pedantic -Werror -std=c99 -O3 -pg -xHost -I./src/include #-I/apps/likwid/5.3.0/include
 

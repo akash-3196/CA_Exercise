@@ -216,12 +216,16 @@ void jacobi_column_wise(double* grid_source, double* grid_target, uint32_t x, ui
 void jacobi_spatial_blocking(double* grid_source, double* grid_target, uint32_t x, uint32_t y) {
 
     for (uint32_t i = 1; i < y - 1; ++i) {
+
+       
+        for (uint32_t j = 1; j < x - 1; j += BLOCKING_FACTOR) {
+
         #pragma novector
         #pragma nounroll
-        for (uint32_t j = 1; j < x - 1; j += BLOCKING_FACTOR) {
 
             for (uint32_t k = 0; k < BLOCKING_FACTOR; k += JACOBI_UNROLLING) {
               
+              uint32_t offset = j + k;
                     __m256d top_point = _mm256_loadu_pd(&grid_source[x * (i - 1) + k]);
                     __m256d bottom_point = _mm256_loadu_pd(&grid_source[x * (i + 1) + k]);
 
