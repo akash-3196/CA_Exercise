@@ -226,11 +226,11 @@ void jacobi_spatial_blocking(double* grid_source, double* grid_target, uint32_t 
             for (uint32_t k = 0; k < BLOCKING_FACTOR; k += JACOBI_UNROLLING) {
               
               uint32_t offset = j + k;
-                    __m256d top_point = _mm256_loadu_pd(&grid_source[x * (i - 1) + k]);
-                    __m256d bottom_point = _mm256_loadu_pd(&grid_source[x * (i + 1) + k]);
+                    __m256d top_point = _mm256_loadu_pd(&grid_source[x * (i - 1) + offset]);
+                    __m256d bottom_point = _mm256_loadu_pd(&grid_source[x * (i + 1) + offset]);
 
-                    __m256d left_point = _mm256_loadu_pd(&grid_source[x * i + (k - 1)]);
-                    __m256d right_point = _mm256_loadu_pd(&grid_source[x * i + (k + 1)]);
+                    __m256d left_point = _mm256_loadu_pd(&grid_source[x * i + (offset - 1)]);
+                    __m256d right_point = _mm256_loadu_pd(&grid_source[x * i + (offset + 1)]);
 
                     __m256d result1 = _mm256_add_pd(top_point, bottom_point);
                     __m256d result2 = _mm256_add_pd(left_point, right_point);
