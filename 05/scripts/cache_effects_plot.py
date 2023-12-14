@@ -9,9 +9,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 import pandas as pd
 import os
+import sys
 
-
-# Display the result
 
 
 # Define a function to read CSV and return x and y axes
@@ -22,8 +21,17 @@ def read_csv(file_path):
     return x_axis, y_axis
 
 # Define file paths
-directory_path = '../server_data/'  # Update this with your actual directory path
+if len(sys.argv) != 2:
+    print("Usage: python cache_effects_plot.py path_to_files")
+    sys.exit(1)
+
+# Access the path provided as an argument
+path_to_file = sys.argv[1]
+
+
+directory_path = '../server_data/' + path_to_file  # Update this with your actual directory path
 file_prefix = 'result_cache_effects'
+
 
 # List all files in the directory that start with the specified prefix
 matching_files = [f for f in os.listdir(directory_path) if f.startswith(file_prefix)]
@@ -42,7 +50,8 @@ for file_path in file_paths:
     labels.append(label)
 
 matplotlib.rc('figure', figsize=(12, 5))
-
+x_axis =[]
+y_axis =[]
 for file_path, color, label in zip(file_paths, colors, labels):
     x_axis, y_axis = read_csv(file_path)
     plt.plot(x_axis, y_axis, 'o-', color=color, label=label)
@@ -54,11 +63,15 @@ formatter.set_scientific(False)
 # Apply the formatter to the x-axis
 # Get the current axes
 ax = plt.gca()
+
 ax.xaxis.set_major_formatter(formatter)
 ax.yaxis.set_major_formatter(formatter)
+
+
 plt.xscale('log')
 plt.xlabel("Memory Consumption")
 plt.ylabel("MegaUpdatesPerSecond")
+plt.legend()
 plt.grid()
 plt.legend()
 plt.show()
