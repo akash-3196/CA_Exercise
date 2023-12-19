@@ -1,7 +1,7 @@
 
 # Computer Architecture Course Assignments at FAU
 
-This repository contains solutions to the Computer Architecture assignments completed by me and my teammates during the Winter Semester 2023/2024 at FAU.
+This repository contains solutions to the Computer Architecture assignments completed by me and my group partner during the Winter Semester 2023/2024 at FAU.
 
 ## Overview
 
