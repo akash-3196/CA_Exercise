@@ -23,7 +23,7 @@
  */
 
 
-uint64_t minimal_runtime  = 180000000; // set minimal runtime to 1000000 microseconds = 1 seconds
+uint64_t minimal_runtime  = 1000000; // set minimal runtime to 1000000 microseconds = 1 seconds
 uint64_t   mega_updates_per_second  = 0u;
 double   adds_per_second  = 0u;
 uint64_t grid_size_bytes= 0u;
