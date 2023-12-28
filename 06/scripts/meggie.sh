@@ -3,7 +3,7 @@
 #SBATCH --ntasks-per-node=1 # Number of tasks per node
 #SBATCH --exclusive         # Request exclusive node access
 #SBATCH --cpu-freq=2200000  # CPU frequency setting
-#SBATCH -t 06:00:00         # Maximum job runtime
+#SBATCH -t 00:15:00         # Maximum job runtime
 
 
 # Enable debug and verbose mode
