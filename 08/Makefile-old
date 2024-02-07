@@ -1,0 +1,38 @@
+# Makefile for cuda_stream
+
+# Compiler settings
+CC = nvcc
+CFLAGS = -Xcompiler "-Wall -pedantic -Werror -O3 -pg" -DSTREAM_ARRAY_SIZE=1073741824 -I./src/include
+
+# Source files
+SRC_DIR = src
+CUDA_SRC = $(wildcard $(SRC_DIR)/*.cu)
+C_SRC = $(wildcard $(SRC_DIR)/*.c)
+CUDA_OBJECTS = $(patsubst $(SRC_DIR)/%.cu, build/%.o, $(CUDA_SRC))
+C_OBJECTS = $(patsubst $(SRC_DIR)/%.c, build/%.o, $(C_SRC))
+
+# Output binary
+TARGET = cuda_stream
+
+# Targets
+all: $(TARGET)
+
+$(TARGET): build $(CUDA_OBJECTS) $(C_OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(CUDA_OBJECTS) $(C_OBJECTS)
+
+build:
+	mkdir -p build
+
+build/%.o: $(SRC_DIR)/%.cu
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+build/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.PHONY: clean
+clean:
+	rm -rf build $(TARGET)
+
+.PHONY: run
+run: $(TARGET)
+	./$(TARGET)

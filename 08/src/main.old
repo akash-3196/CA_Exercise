@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <inttypes.h>
+
+#include <cuda.h>
+#include <cuda_runtime.h>
+
+
+#include "get_time.h"
+#include "vec_triad.h"
+
+/*
+static void usage_msg(void)
+{
+	fprintf(stderr, "Usage: ./cuda_stream  vector_size_GiB\n");
+	return;
+}*/
+__global__ void helloCUDA() {
+    printf("Hello from block %d, thread %d!\n", blockIdx.x, threadIdx.x);
+}
+
+
+int main(int argc, char *argv[])
+{
+
+	//uint64_t start = 0u;
+	//uint64_t stop = 0u;
+	//uint64_t actual_runtime = 0u;
+
+
+	uint32_t ARRAY_LENGHT = STREAM_ARRAY_SIZE / sizeof(float);
+	// Initialize Arrays
+	float *A = (float *)malloc(ARRAY_LENGHT * sizeof(float));
+	float *B = (float *)malloc(ARRAY_LENGHT * sizeof(float));
+	float *C = (float *)malloc(ARRAY_LENGHT * sizeof(float));
+	float c = get_rand();
+
+	//printf("STREAM_ARRAY_SIZE: %d\n", STREAM_ARRAY_SIZE);
+	//printf("ARRAY_LENGTH: %d\n", ARRAY_LENGHT);
+
+	for (uint32_t i = 0; i < ARRAY_LENGHT; i++)
+	{
+		A[i] = 1.0;
+		B[i] = 2.0;
+		C[i] = 3.0;
+	}
+
+
+ helloCUDA<<<1, 10>>>();
+
+
+	// CUDA STREAMing
+	//start = get_time_us();
+
+		//serial_vec_triad(A, B, C, c, ARRAY_LENGHT);
+
+	//stop = get_time_us();
+	//actual_runtime = stop - start;
+	//uint64_t total_bytes = (sizeof(float) * ARRAY_LENGHT * 3); // 2 load operations, 1 store operation
+
+	//uint64_t mega_bytes_per_second = (total_bytes / (actual_runtime * 1e-6)) / 1e6;
+	//fprintf(stdout, "Triad:\t%" PRIu64 ",\tTime:%" PRIu64 "\n", mega_bytes_per_second, actual_runtime);
+
+	return 0;
+}
