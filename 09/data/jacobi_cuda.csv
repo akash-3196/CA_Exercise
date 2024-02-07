@@ -1,0 +1,28 @@
+
+JOB_INFO:
+ 	ROWS:19360 COLUMNS:19360
+ 	NUMBER OF GRID POINTS:375000000
+
+ 	GPU KERNEL:
+ 		GRID_SIZE:605x605  BLOCK_SIZE:32x32  
+
+
+Result Validity:
+ 	h_resultGrid[0]: 1.000000
+ 	h_resultGrid[1]: 1.000000
+	  .
+	  .
+	  .
+ 	h_resultGrid[374809598]: 0.187859
+ 	h_resultGrid[374809599]: 0.192699
+
+
+Total Bytes Loaded: 960 GiB
+
+
+Function		 MB/s		 Time
+
+JACOBI(Without COPY)   	 693238    	 1384804
+JACOBI(With COPY)   	 97997    	 9826792
+
+

@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <inttypes.h>
+
+#include <time.h>
+#include <sys/time.h>
+
+#include <mm_malloc.h>
+#include <cuda.h>
+#include <cuda_runtime.h>
+
+extern "C"
+{
+#include "draw.h"
+}
+extern "C"
+{
+#include "get_time.h"
+}
+extern "C"
+{
+#include "helpers.h"
+}
+#include "jacobi.h"
+
+// #define GRID_SIZE 3000000000
+
+int main(int argc, char *argv[])
+{
+	uint64_t start = 0u;
+	uint64_t stop = 0u;
+	// uint64_t actual_runtime_without_copy = 0u;
+	// uint64_t actual_runtime_with_copy = 0u;
+
+	uint64_t actual_runtime = 0u;
+	uint64_t runs = 0u;
+	uint64_t minimal_runtime = 1000000;
+
+	double *d_gridSource;
+	double *d_gridTarget;
+
+	uint64_t gridLength = GRID_SIZE / sizeof(double);
+	uint64_t edge_size = sqrt(gridLength);
+	printf(" edge_size:%" PRId64 "\n", edge_size);
+
+	uint64_t num_rows = edge_size;
+	uint64_t num_cols = num_rows;
+
+	double *h_gridSource = (double *)_mm_malloc(gridLength * sizeof(double), 64);
+	double *h_gridTarget = (double *)_mm_malloc(gridLength * sizeof(double), 64);
+	double *h_resultGrid = (double *)_mm_malloc(gridLength * sizeof(double), 64);
+
+	initialize_grid(h_gridSource, num_rows, num_cols);
+	initialize_grid(h_gridTarget, num_rows, num_cols);
+
+	printf("\n Row:%" PRId64 " Column:%" PRId64 "\n", num_rows, num_cols);
+
+	// Allocate memory
+	cudaMalloc((void **)&d_gridSource, sizeof(double) * gridLength);
+	cudaMalloc((void **)&d_gridTarget, sizeof(double) * gridLength);
+
+	// Copy data from host to device
+	cudaMemcpy(d_gridSource, h_gridSource, sizeof(double) * gridLength, cudaMemcpyHostToDevice);
+	cudaMemcpy(d_gridTarget, h_gridTarget, sizeof(double) * gridLength, cudaMemcpyHostToDevice);
+
+	/*if (cudaStatus != cudaSuccess)
+	{
+		fprintf(stderr, "cudaMemcpy failed for one of the memory copy operations: %s\n", cudaGetErrorString(cudaStatus));
+	}*/
+
+	// set kernel dimension
+	// RTX GPU SM
+	// 32x32 =1024
+	uint thread_x = 32;
+	uint thread_y = 32;
+	// uint numBlocks = (gridLength + RTX_MAX_THREAD_BLOCK) / RTX_MAX_THREAD_BLOCK;
+
+	// printf("THREADS:%" PRId32  " BLOCKS:%" PRId32 " GRIDLENGTH:%" PRId64 "\n", RTX_MAX_THREAD_BLOCK,numBlocks,gridLength);
+
+	dim3 grid_size(12, 12);
+	dim3 block_size(thread_x, thread_y);
+
+	for (runs = 1u; actual_runtime < minimal_runtime; runs = runs << 1u)
+	{
+		start = get_time_us();
+
+		for (uint64_t i = 0u; i < runs; i++)
+		{
+			// serial_update_grid(h_gridSource, h_gridTarget, num_cols, num_rows);
+			// swap(&h_gridSource, &h_gridTarget);
+
+			update_grid<<<grid_size, block_size>>>(d_gridSource, d_gridTarget, num_cols, num_rows);
+			cudaDeviceSynchronize();
+			double *temp = d_gridSource;
+			d_gridSource = d_gridTarget;
+			d_gridTarget = temp;
+			// swap(&d_gridTarget, &d_gridSource);
+		}
+
+		stop = get_time_us();
+		actual_runtime = stop - start;
+	}
+
+	cudaMemcpy(h_resultGrid, d_gridTarget, sizeof(double) * gridLength, cudaMemcpyDeviceToHost);
+
+	// printf("Program Code ran successfully!\n");
+	char file_path[50];
+	sprintf(file_path, "jacobi_heat_map_%" PRId64 "x%" PRId64 ".ppm", num_rows, num_cols);
+
+	draw_grid(h_resultGrid, num_cols, num_rows, file_path);
+
+	// Calculate the Bandwidth
+
+	free(h_gridSource);
+	free(h_gridTarget);
+
+	cudaFree(d_gridSource);
+	cudaFree(d_gridTarget);
+
+	return 0;
+}
