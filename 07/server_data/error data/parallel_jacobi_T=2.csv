@@ -1,0 +1,14 @@
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 2
+Task 7 GridSize: 15998
+IF BRANCH TAKEN
+NUM_ROWS:16000   DIVIDE_WORK: 8000
+[1;34m[pthread wrapper] 
+[0m[1;34m[pthread wrapper] MAIN -> 0
+[0m[1;34m[pthread wrapper] PIN_MASK: [0m[1;34m0->1  [0m[1;34m
+[pthread wrapper] SKIP MASK: 0x0
+[0m[1;34m	threadid 23256234039040 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34mRoundrobin placement triggered
+	threadid 23256234039040 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 23256234039040 -> hwthread 1 - OK[0m[1;34m
+[0m4096000000,1003,1020305.000000,1000000

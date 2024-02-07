@@ -1,0 +1,12 @@
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 1
+Task 7 GridSize: 15998
+ELSE BRANCH TAKEN
+4096000000,548,1867002.000000,1000000
+[1;34m[likwid-pin] Main PID -> hwthread 0 - OK[0m
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 1
+Task 7 GridSize: 15998
+ELSE BRANCH TAKEN
+4096000000,580,1763257.000000,1000000
+[1;34m[likwid-pin] Main PID -> hwthread 0 - OK[0m

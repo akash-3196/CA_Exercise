@@ -1,0 +1,33 @@
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 12
+Task 7 GridSize: 15998
+IF BRANCH TAKEN
+NUM_ROWS:16000   DIVIDE_WORK: 1333
+[1;34m[pthread wrapper] 
+[0m[1;34m[pthread wrapper] MAIN -> 0
+[0m[1;34m[pthread wrapper] PIN_MASK: [0m[1;34m0->1  [0m[1;34m1->2  [0m[1;34m2->3  [0m[1;34m3->4  [0m[1;34m4->5  [0m[1;34m5->6  [0m[1;34m6->7  [0m[1;34m7->8  [0m[1;34m8->9  [0m[1;34m9->10  [0m[1;34m10->11  [0m[1;34m
+[pthread wrapper] SKIP MASK: 0x0
+[0m[1;34m	threadid 22413300070144 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 22413297968896 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 22413295867648 -> hwthread 3 - OK[0m[1;34m
+[0m[1;34m	threadid 22413293766400 -> hwthread 4 - OK[0m[1;34m
+[0m[1;34m	threadid 22413291665152 -> hwthread 5 - OK[0m[1;34m
+[0m[1;34m	threadid 22413289563904 -> hwthread 6 - OK[0m[1;34m
+[0m[1;34m	threadid 22413287462656 -> hwthread 7 - OK[0m[1;34m
+[0m[1;34m	threadid 22413285361408 -> hwthread 8 - OK[0m[1;34m
+[0m[1;34m	threadid 22413283260160 -> hwthread 9 - OK[0m[1;34m
+[0m[1;34m	threadid 22413281158912 -> hwthread 10 - OK[0m[1;34m
+[0m[1;34m	threadid 22413279057664 -> hwthread 11 - OK[0m[1;34m
+[0m[1;34mRoundrobin placement triggered
+	threadid 22413279057664 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 22413281158912 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 22413283260160 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 22413285361408 -> hwthread 3 - OK[0m[1;34m
+[0m[1;34m	threadid 22413287462656 -> hwthread 4 - OK[0m[1;34m
+[0m[1;34m	threadid 22413289563904 -> hwthread 5 - OK[0m[1;34m
+[0m[1;34m	threadid 22413291665152 -> hwthread 6 - OK[0m[1;34m
+[0m[1;34m	threadid 22413293766400 -> hwthread 7 - OK[0m[1;34m
+[0m[1;34m	threadid 22413295867648 -> hwthread 8 - OK[0m[1;34m
+[0m[1;34m	threadid 22413297968896 -> hwthread 9 - OK[0m[1;34m
+[0m[1;34m	threadid 22413300070144 -> hwthread 10 - OK[0m[1;34m
+[0m4096000000,446,1146675.000000,1000000
