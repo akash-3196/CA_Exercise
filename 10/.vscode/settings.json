@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "limits": "cpp",
+        "helpers.h": "c",
+        "cmath": "cpp"
+    }
+}
