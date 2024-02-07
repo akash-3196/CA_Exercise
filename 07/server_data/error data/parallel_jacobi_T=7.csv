@@ -1,0 +1,35 @@
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 7
+Task 7 GridSize: 15998
+IF BRANCH TAKEN
+NUM_ROWS:16000   DIVIDE_WORK: 2285
+[1;34m[pthread wrapper] 
+[0m[1;34m[pthread wrapper] MAIN -> 0
+[0m[1;34m[pthread wrapper] PIN_MASK: [0m[1;34m0->1  [0m[1;34m1->2  [0m[1;34m2->3  [0m[1;34m3->4  [0m[1;34m4->5  [0m[1;34m5->6  [0m[1;34m
+[pthread wrapper] SKIP MASK: 0x0
+[0m[1;34m	threadid 23337824847616 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 23337822746368 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 23337820645120 -> hwthread 3 - OK[0m[1;34m
+[0m[1;34m	threadid 23337818543872 -> hwthread 4 - OK[0m[1;34m
+[0m[1;34m	threadid 23337816442624 -> hwthread 5 - OK[0m[1;34m
+[0m[1;34m	threadid 23337814341376 -> hwthread 6 - OK[0m[1;34m
+[0m[1;34mRoundrobin placement triggered
+	threadid 23337814341376 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 23337816442624 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 23337818543872 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 23337820645120 -> hwthread 3 - OK[0m[1;34m
+[0m[1;34m	threadid 23337822746368 -> hwthread 4 - OK[0m[1;34m
+[0m[1;34m	threadid 23337824847616 -> hwthread 5 - OK[0m[1;34m
+[0m[1;34m	threadid 23337824847616 -> hwthread 6 - OK[0m[1;34m
+[0m[1;34m	threadid 23337822746368 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 23337820645120 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 23337818543872 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 23337816442624 -> hwthread 3 - OK[0m[1;34m
+[0m[1;34m	threadid 23337814341376 -> hwthread 4 - OK[0m[1;34m
+[0m[1;34m	threadid 23337814341376 -> hwthread 5 - OK[0m[1;34m
+[0m[1;34m	threadid 23337816442624 -> hwthread 6 - OK[0m[1;34m
+[0m[1;34m	threadid 23337818543872 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 23337820645120 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 23337822746368 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 23337824847616 -> hwthread 3 - OK[0m[1;34m
+[0m4096000000,1287,1589771.000000,1000000

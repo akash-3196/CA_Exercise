@@ -1,0 +1,53 @@
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 3
+Task 7 GridSize: 15998
+IF BRANCH TAKEN
+NUM_ROWS:16000   DIVIDE_WORK: 5333
+[1;34m[pthread wrapper] 
+[0m[1;34m[pthread wrapper] MAIN -> 0
+[0m[1;34m[pthread wrapper] PIN_MASK: [0m[1;34m0->1  [0m[1;34m1->2  [0m[1;34m
+[pthread wrapper] SKIP MASK: 0x0
+[0m[1;34m	threadid 22676234290944 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 22676232189696 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34mRoundrobin placement triggered
+	threadid 22676232189696 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 22676234290944 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 22676234290944 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 22676232189696 -> hwthread 0 - OK[0m[1;34m
+[0m4096000000,769,1331027.000000,1000000
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 3
+Task 7 GridSize: 15998
+IF BRANCH TAKEN
+NUM_ROWS:16000   DIVIDE_WORK: 5333
+[1;34m[pthread wrapper] 
+[0m[1;34m[pthread wrapper] MAIN -> 0
+[0m[1;34m[pthread wrapper] PIN_MASK: [0m[1;34m0->1  [0m[1;34m1->2  [0m[1;34m
+[pthread wrapper] SKIP MASK: 0x0
+[0m[1;34m	threadid 22391762179840 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 22391760078592 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34mRoundrobin placement triggered
+	threadid 22391760078592 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 22391762179840 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 22391762179840 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 22391760078592 -> hwthread 0 - OK[0m[1;34m
+[0m4096000000,766,1336362.000000,1000000
+ArraySize,MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime
+THREADS: 3
+Task 7 GridSize: 15998
+IF BRANCH TAKEN
+NUM_ROWS:16000   DIVIDE_WORK: 5333
+[1;34m[pthread wrapper] 
+[0m[1;34m[pthread wrapper] MAIN -> 0
+[0m[1;34m[pthread wrapper] PIN_MASK: [0m[1;34m0->1  [0m[1;34m1->2  [0m[1;34m2->3  [0m[1;34m
+[pthread wrapper] SKIP MASK: 0x0
+[0m[1;34m	threadid 23141992093440 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 23141989992192 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 23141989992192 -> hwthread 3 - OK[0m[1;34m
+[0m[1;34mRoundrobin placement triggered
+	threadid 23141992093440 -> hwthread 0 - OK[0m[1;34m
+[0m[1;34m	threadid 23141992093440 -> hwthread 1 - OK[0m[1;34m
+[0m[1;34m	threadid 23141989992192 -> hwthread 2 - OK[0m[1;34m
+[0m[1;34m	threadid 23141989992192 -> hwthread 3 - OK[0m[1;34m
+[0m[1;34m	threadid 23141992093440 -> hwthread 0 - OK[0m[1;34m
+[0m4096000000,770,2657369.000000,1000000
