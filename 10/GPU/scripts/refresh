@@ -1,0 +1,3 @@
+#!/bin/bash 
+rm ready jacobi_cuda.csv tinyx.sh.o*
+cd ../ && make clean && make && cd scripts
