@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <time.h>
+#include <cuda_runtime.h>
+
+
+__global__ void triad_kernel(float* A, float* B, float* C, float c, uint32_t N) {
+  
+            if(threadIdx.x<N){
+                A[threadIdx.x] = B[threadIdx.x]*c + C[threadIdx.x];
+            }
+            
+}
